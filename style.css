@@ -1,0 +1,155 @@
+/* =========================================================
+   STATION 09 — Architectural Minimalist Design System
+   ========================================================= */
+
+:root {
+  --bg-page: #f7f7f5;
+  --bg-card: #ffffff;
+  --bg-subtle: #efefe9;
+  --text-main: #111113;
+  --text-muted: #57575f;
+  --border-color: #e2e2dd;
+  --header-bg: rgba(247, 247, 245, 0.88);
+  --accent: #0055ff;
+}
+
+html.dark {
+  --bg-page: #0b0b0d;
+  --bg-card: #131317;
+  --bg-subtle: #1a1a20;
+  --text-main: #f4f4f6;
+  --text-muted: #9898a3;
+  --border-color: #25252e;
+  --header-bg: rgba(11, 11, 13, 0.86);
+  --accent: #0055ff;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.text-main {
+  color: var(--text-main);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.surface-card {
+  background-color: var(--bg-card);
+}
+
+.surface-subtle {
+  background-color: var(--bg-subtle);
+}
+
+.border-subtle {
+  border-color: var(--border-color);
+}
+
+.divide-subtle > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--border-color);
+}
+
+/* Header */
+.site-header {
+  background-color: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-item {
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+}
+
+.nav-item:hover {
+  color: var(--text-main);
+}
+
+/* Buttons */
+.btn-ghost {
+  color: var(--text-muted);
+  background: transparent;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn-ghost:hover {
+  background-color: var(--bg-subtle);
+  color: var(--text-main);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-subtle);
+  border-color: var(--text-muted);
+}
+
+/* Filter Pills */
+.pill {
+  padding: 0.45rem 0.9rem;
+  border-radius: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  transition: all 0.15s ease;
+}
+
+.pill:hover {
+  color: var(--text-main);
+  background-color: var(--bg-subtle);
+}
+
+.pill.active {
+  background-color: var(--text-main);
+  color: var(--bg-page);
+  border-color: var(--text-main);
+}
+
+/* Form Inputs */
+.form-input {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 85, 255, 0.16);
+}
+
+/* Unit Card Hover */
+.unit-card-free {
+  cursor: pointer;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.unit-card-free:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+/* Tabular Numbers for Clean Price Alignment */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}

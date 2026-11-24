@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STATION 09 — PlayStation 5 Lounge & Home Rental</title>
+
+  <!-- Typography: Plus Jakarta Sans + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            cobalt: {
+              DEFAULT: '#0055FF',
+              hover: '#0044CC',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+<body class="font-sans antialiased">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 site-header">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+      <!-- Brand -->
+      <a href="#top" class="flex items-center gap-2.5 group">
+        <span class="w-7 h-7 rounded-md bg-cobalt text-white font-mono text-xs font-semibold flex items-center justify-center">09</span>
+        <span class="font-bold text-base tracking-tight">STATION 09</span>
+      </a>
+
+      <!-- Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium">
+        <a href="#ketersediaan" class="nav-item">Ketersediaan</a>
+        <a href="#tarif" class="nav-item">Paket & Harga</a>
+        <a href="#game" class="nav-item">Daftar Game</a>
+        <a href="#booking" class="nav-item">Booking</a>
+      </nav>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-2.5">
+        <button id="open-lookup-btn" type="button"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium btn-ghost">
+          <i data-lucide="ticket" class="w-3.5 h-3.5"></i>
+          <span>Cek Tiket</span>
+        </button>
+
+        <button id="theme-toggle" type="button" aria-label="Ganti Tema"
+          class="w-9 h-9 rounded-lg btn-ghost flex items-center justify-center">
+          <i id="icon-sun" data-lucide="sun" class="w-4 h-4 hidden"></i>
+          <i id="icon-moon" data-lucide="moon" class="w-4 h-4"></i>
+        </button>
+
+        <a href="#booking"
+          class="hidden sm:inline-flex items-center px-4 py-2 rounded-lg bg-cobalt hover:bg-cobalt-hover text-white text-xs font-semibold transition-colors">
+          Pesan Unit
+        </a>
+
+        <button id="mobile-menu-btn" type="button" aria-label="Menu"
+          class="md:hidden w-9 h-9 rounded-lg btn-ghost flex items-center justify-center">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-subtle px-5 py-4 space-y-2 surface-card">
+      <a href="#ketersediaan" class="block py-2 text-sm font-medium nav-item">Ketersediaan Unit</a>
+      <a href="#tarif" class="block py-2 text-sm font-medium nav-item">Paket & Harga</a>
+      <a href="#game" class="block py-2 text-sm font-medium nav-item">Daftar Game</a>
+      <button id="mobile-lookup-btn" type="button" class="block py-2 text-sm font-medium text-left w-full nav-item">Cek Kode Booking</button>
+      <a href="#booking" class="block text-center py-2.5 mt-2 rounded-lg bg-cobalt text-white text-sm font-semibold">Pesan Unit Sekarang</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="py-16 sm:py-24 border-b border-subtle">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full surface-subtle border border-subtle text-xs font-mono">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span id="hero-live-badge">Memeriksa unit tersedia...</span>
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-[3.4rem] font-extrabold tracking-tight leading-[1.1]">
+              Rental PlayStation 5 dengan layar OLED dan ruang yang tenang.
+            </h1>
+
+            <p class="text-base sm:text-lg text-muted max-w-xl leading-relaxed">
+              Main di tempat dengan PS5 Pro 120Hz tanpa lag, pesan ruang VIP kedap suara bersama teman, atau sewa unit harian untuk diantar langsung ke rumah.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <a href="#booking"
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-cobalt hover:bg-cobalt-hover text-white text-sm font-semibold transition-colors">
+                <span>Booking Sekarang</span>
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a href="#ketersediaan"
+                class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl btn-outline text-sm font-semibold transition-colors">
+                <span>Lihat Unit Kosong</span>
+              </a>
+            </div>
+
+            <!-- Factual Key Specs -->
+            <div class="grid grid-cols-3 gap-6 pt-8 border-t border-subtle max-w-lg">
+              <div>
+                <div class="font-mono text-lg font-semibold tabular-nums">Rp 20.000</div>
+                <div class="text-xs text-muted mt-0.5">Mulai per jam</div>
+              </div>
+              <div>
+                <div class="font-mono text-lg font-semibold tabular-nums">4K 120Hz</div>
+                <div class="text-xs text-muted mt-0.5">Layar LG C4 OLED</div>
+              </div>
+              <div>
+                <div class="font-mono text-lg font-semibold tabular-nums">24 Jam</div>
+                <div class="text-xs text-muted mt-0.5">Buka setiap hari</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Clean Editorial Image -->
+          <div class="lg:col-span-5">
+            <figure class="space-y-3">
+              <div class="rounded-2xl overflow-hidden border border-subtle aspect-[4/5] surface-subtle">
+                <img
+                  src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=960&q=85"
+                  alt="PlayStation 5 DualSense & Console Setup"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <figcaption class="flex items-center justify-between text-xs text-muted font-mono px-1">
+                <span>UNIT TERAWAT • STERILISASI UV-C</span>
+                <span>PS5 SLIM & PRO</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: LIVE AVAILABILITY -->
+    <section id="ketersediaan" class="py-20 border-b border-subtle">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-cobalt font-medium">Status Real-Time</p>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1.5">Ketersediaan Unit Hari Ini</h2>
+            <p class="text-sm text-muted mt-1.5">Klik unit berstatus <strong>Tersedia</strong> untuk langsung masuk ke formulir booking.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2" id="unit-filters">
+            <button data-filter="all" class="pill active">Semua</button>
+            <button data-filter="reguler" class="pill">Reguler</button>
+            <button data-filter="pro" class="pill">Pro OLED</button>
+            <button data-filter="vip" class="pill">VIP Privat</button>
+            <button id="refresh-units-btn" type="button" title="Perbarui Status"
+              class="w-9 h-9 rounded-lg btn-ghost flex items-center justify-center">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div id="units-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Diisi dari /api/units -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: PRICING & TIERS -->
+    <section id="tarif" class="py-20 border-b border-subtle">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="max-w-xl mb-12">
+          <p class="font-mono text-xs uppercase tracking-wider text-cobalt font-medium">Tarif Transparan</p>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1.5">Pilih Paket Sesuai Kebutuhan</h2>
+          <p class="text-sm text-muted mt-1.5">Harga sudah termasuk 2 stik DualSense dan akses penuh ke seluruh katalog game resmi.</p>
+        </div>
+
+        <!-- 3 Main di Tempat Tiers -->
+        <div class="grid md:grid-cols-3 gap-5 mb-5">
+          <!-- Reguler -->
+          <div class="surface-card border border-subtle rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-muted uppercase">Main di Tempat</span>
+              </div>
+              <h3 class="text-xl font-bold mt-2">Reguler</h3>
+              <div class="mt-4 pb-5 border-b border-subtle flex items-baseline gap-1">
+                <span class="text-3xl font-bold font-mono tabular-nums">Rp 20.000</span>
+                <span class="text-xs text-muted">/ jam</span>
+              </div>
+              <ul class="mt-5 space-y-3 text-sm text-muted">
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> PlayStation 5 Slim 1TB</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> TV 4K 43 inci HDR 60Hz</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> 2x DualSense & Headset HyperX</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> Koneksi Wi-Fi & LAN stabil</li>
+              </ul>
+            </div>
+            <button type="button" data-choose-tier="reguler"
+              class="mt-7 w-full py-2.5 rounded-xl btn-outline text-sm font-semibold transition-colors">
+              Pilih Reguler
+            </button>
+          </div>
+
+          <!-- Pro OLED (Highlighted cleanly) -->
+          <div class="surface-card border-2 border-cobalt rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-cobalt uppercase font-semibold">Paling Diminati</span>
+                <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-cobalt/10 text-cobalt font-medium">120Hz OLED</span>
+              </div>
+              <h3 class="text-xl font-bold mt-2">Pro OLED</h3>
+              <div class="mt-4 pb-5 border-b border-subtle flex items-baseline gap-1">
+                <span class="text-3xl font-bold font-mono tabular-nums">Rp 35.000</span>
+                <span class="text-xs text-muted">/ jam</span>
+              </div>
+              <ul class="mt-5 space-y-3 text-sm">
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> <strong>PlayStation 5 Pro</strong></li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> LG C4 55 inci OLED 120Hz VRR</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> DualSense Edge Pro Controller</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> Kursi ergonomis + LAN 1Gbps</li>
+              </ul>
+            </div>
+            <button type="button" data-choose-tier="pro"
+              class="mt-7 w-full py-2.5 rounded-xl bg-cobalt hover:bg-cobalt-hover text-white text-sm font-semibold transition-colors">
+              Pilih Pro OLED
+            </button>
+          </div>
+
+          <!-- VIP Privat -->
+          <div class="surface-card border border-subtle rounded-2xl p-6 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between">
+                <span class="font-mono text-xs text-muted uppercase">Ruang Tertutup</span>
+              </div>
+              <h3 class="text-xl font-bold mt-2">Ruang VIP Privat</h3>
+              <div class="mt-4 pb-5 border-b border-subtle flex items-baseline gap-1">
+                <span class="text-3xl font-bold font-mono tabular-nums">Rp 85.000</span>
+                <span class="text-xs text-muted">/ jam</span>
+              </div>
+              <ul class="mt-5 space-y-3 text-sm text-muted">
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> Ruangan kedap suara (maks. 6 orang)</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> Layar 75 inci Mini-LED + Dolby Atmos</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> PS5 Pro + akses PlayStation VR2</li>
+                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-cobalt shrink-0 mt-0.5"></i> Sofa lounge + minuman selamat datang</li>
+              </ul>
+            </div>
+            <button type="button" data-choose-tier="vip"
+              class="mt-7 w-full py-2.5 rounded-xl btn-outline text-sm font-semibold transition-colors">
+              Pilih Ruang VIP
+            </button>
+          </div>
+        </div>
+
+        <!-- Horizontal Card: Sewa Bawa Pulang -->
+        <div class="surface-subtle border border-subtle rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2 max-w-2xl">
+            <span class="font-mono text-xs uppercase text-cobalt font-medium">Layanan Antar-Jemput</span>
+            <h3 class="text-xl font-bold">Ingin Main di Rumah? Sewa Harian PS5 Slim</h3>
+            <p class="text-sm text-muted leading-relaxed">
+              Termasuk 1 unit PS5 Slim dalam hardcase, 2 stik DualSense, kabel HDMI 2.1, dan 25+ game populer terpasang. Kurir kami mengantar dan membantu pemasangan langsung ke TV Anda.
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3 shrink-0">
+            <div class="flex items-baseline gap-1">
+              <span class="text-2xl sm:text-3xl font-bold font-mono tabular-nums">Rp 150.000</span>
+              <span class="text-xs text-muted">/ 24 jam</span>
+            </div>
+            <button type="button" data-choose-tier="home"
+              class="px-5 py-2.5 rounded-xl bg-cobalt hover:bg-cobalt-hover text-white text-sm font-semibold transition-colors">
+              Pesan Bawa Pulang
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: GAME CATALOG -->
+    <section id="game" class="py-20 border-b border-subtle">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8">
+          <div>
+            <p class="font-mono text-xs uppercase tracking-wider text-cobalt font-medium">Koleksi Resmi</p>
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1.5">Daftar Game Terpasang</h2>
+            <p class="text-sm text-muted mt-1.5">Semua game menggunakan lisensi resmi dengan patch terbaru.</p>
+          </div>
+
+          <div class="relative w-full md:w-64">
+            <i data-lucide="search" class="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input id="game-search" type="text" placeholder="Cari judul game..."
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl form-input text-sm" />
+          </div>
+        </div>
+
+        <div id="game-filters" class="flex flex-wrap gap-2 mb-8">
+          <button data-genre="all" class="pill active">Semua</button>
+          <button data-genre="Sports" class="pill">Olahraga</button>
+          <button data-genre="Action" class="pill">Action RPG</button>
+          <button data-genre="Fighting" class="pill">Fighting</button>
+          <button data-genre="Racing" class="pill">Balap</button>
+          <button data-genre="Co-op" class="pill">Co-op</button>
+        </div>
+
+        <div id="games-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- Dirender oleh main.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: BOOKING & RECEIPT CALCULATOR -->
+    <section id="booking" class="py-20 border-b border-subtle">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="max-w-xl mb-10">
+          <p class="font-mono text-xs uppercase tracking-wider text-cobalt font-medium">Reservasi Langsung</p>
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1.5">Atur Jadwal & Cek Total Biaya</h2>
+          <p class="text-sm text-muted mt-1.5">
+            Tersedia kode promo <span class="font-mono font-semibold text-main">MAIN15</span> (diskon 15%) dan <span class="font-mono font-semibold text-main">MALAM20</span> (diskon 20%).
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-12 gap-8 items-start">
+          <!-- Booking Form -->
+          <form id="booking-form" class="lg:col-span-7 surface-card border border-subtle rounded-2xl p-6 sm:p-8 space-y-6">
+            <div>
+              <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+                <span class="font-mono text-xs px-2 py-0.5 rounded surface-subtle border border-subtle">01</span>
+                Detail Paket & Jadwal
+              </h3>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="input-tier" class="block text-xs font-medium text-muted mb-1.5">Kategori Paket</label>
+                  <select id="input-tier" class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm">
+                    <option value="reguler">Reguler — Rp 20.000 / jam</option>
+                    <option value="pro" selected>Pro OLED — Rp 35.000 / jam</option>
+                    <option value="vip">Ruang VIP Privat — Rp 85.000 / jam</option>
+                    <option value="home">Sewa Bawa Pulang — Rp 150.000 / hari</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="input-unit" class="block text-xs font-medium text-muted mb-1.5">Pilih Nomor Unit</label>
+                  <select id="input-unit" class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm">
+                    <option value="AUTO">Otomatis (Unit Kosong Terbaik)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-3 gap-4 mt-4">
+                <div>
+                  <label for="input-date" class="block text-xs font-medium text-muted mb-1.5">Tanggal</label>
+                  <input id="input-date" type="date" required class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm" />
+                </div>
+                <div>
+                  <label for="input-time" class="block text-xs font-medium text-muted mb-1.5">Jam Mulai</label>
+                  <input id="input-time" type="time" value="19:00" required class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm" />
+                </div>
+                <div>
+                  <label for="input-duration" class="block text-xs font-medium text-muted mb-1.5">
+                    Durasi (<span id="duration-unit">Jam</span>)
+                  </label>
+                  <input id="input-duration" type="number" min="1" max="14" value="2" required
+                    class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm font-mono tabular-nums" />
+                </div>
+              </div>
+
+              <div class="grid sm:grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label for="input-sticks" class="block text-xs font-medium text-muted mb-1.5">Stik Tambahan (+Rp 15.000/stik)</label>
+                  <select id="input-sticks" class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm">
+                    <option value="0">Tidak perlu (sudah dapat 2 stik)</option>
+                    <option value="1">+1 Stik DualSense (+Rp 15.000)</option>
+                    <option value="2">+2 Stik DualSense (+Rp 30.000)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="input-promo" class="block text-xs font-medium text-muted mb-1.5">Kode Promo (Opsional)</label>
+                  <div class="flex gap-2">
+                    <input id="input-promo" type="text" placeholder="Contoh: MAIN15"
+                      class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm font-mono uppercase" />
+                    <button id="btn-apply-promo" type="button"
+                      class="px-4 py-2.5 rounded-xl btn-outline text-xs font-semibold shrink-0">
+                      Pakai
+                    </button>
+                  </div>
+                  <p id="promo-msg" class="text-xs mt-1.5 min-h-[1rem]"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-5 border-t border-subtle">
+              <h3 class="text-sm font-semibold mb-4 flex items-center gap-2">
+                <span class="font-mono text-xs px-2 py-0.5 rounded surface-subtle border border-subtle">02</span>
+                Data Pemesan
+              </h3>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="input-name" class="block text-xs font-medium text-muted mb-1.5">Nama Lengkap</label>
+                  <input id="input-name" type="text" required placeholder="Nama Anda"
+                    class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm" />
+                </div>
+                <div>
+                  <label for="input-phone" class="block text-xs font-medium text-muted mb-1.5">Nomor WhatsApp</label>
+                  <input id="input-phone" type="tel" required placeholder="08xxxxxxxxxx"
+                    class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm font-mono" />
+                </div>
+              </div>
+            </div>
+
+            <button id="btn-submit-booking" type="submit"
+              class="w-full py-3.5 rounded-xl bg-cobalt hover:bg-cobalt-hover text-white text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+              <span>Konfirmasi Reservasi</span>
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </form>
+
+          <!-- Sticky Receipt Summary -->
+          <aside class="lg:col-span-5 lg:sticky lg:top-24 surface-subtle border border-subtle rounded-2xl p-6 sm:p-8 space-y-6">
+            <div class="flex items-center justify-between pb-4 border-b border-subtle">
+              <div>
+                <p class="font-mono text-xs text-muted uppercase">Ringkasan Biaya</p>
+                <h3 class="text-lg font-bold mt-0.5">Estimasi Pembayaran</h3>
+              </div>
+              <i data-lucide="receipt" class="w-5 h-5 text-muted"></i>
+            </div>
+
+            <dl class="space-y-3 text-sm">
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted">Paket</dt>
+                <dd id="sum-tier" class="font-medium text-right">Pro OLED (2 jam)</dd>
+              </div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted">Biaya Sewa</dt>
+                <dd id="sum-base" class="font-mono tabular-nums">Rp 70.000</dd>
+              </div>
+              <div class="flex justify-between gap-4">
+                <dt class="text-muted">Stik Tambahan</dt>
+                <dd id="sum-sticks" class="font-mono tabular-nums">Rp 0</dd>
+              </div>
+              <div id="sum-discount-row" class="hidden justify-between gap-4 text-emerald-500">
+                <dt>Potongan Promo</dt>
+                <dd id="sum-discount" class="font-mono tabular-nums">-Rp 0</dd>
+              </div>
+            </dl>
+
+            <div class="pt-4 border-t border-subtle flex items-baseline justify-between">
+              <span class="text-sm font-semibold">Total Estimasi</span>
+              <span id="sum-total" class="text-2xl sm:text-3xl font-bold font-mono tabular-nums">Rp 70.000</span>
+            </div>
+
+            <div class="text-xs text-muted space-y-2 pt-2 leading-relaxed">
+              <p>• Pembayaran dilakukan di kasir (QRIS, Transfer, atau Tunai) saat kedatangan.</p>
+              <p>• Pembatalan gratis maksimal 1 jam sebelum sesi dimulai.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: STANDARDS & FAQ -->
+    <section class="py-20">
+      <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="grid lg:grid-cols-12 gap-12">
+          <!-- Left: 4 Clear Operational Standards -->
+          <div class="lg:col-span-6 space-y-6">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-wider text-cobalt font-medium">Standar Operasional</p>
+              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1.5">Detail Kecil yang Terasa Saat Bermain</h2>
+            </div>
+
+            <div class="divide-y border-t border-b border-subtle divide-subtle">
+              <div class="py-4 flex gap-4">
+                <span class="font-mono text-xs text-muted pt-1">01</span>
+                <div>
+                  <h3 class="text-sm font-semibold">Stik Bersih & Analog Akurat</h3>
+                  <p class="text-sm text-muted mt-1">Setiap DualSense disterilisasi sinar UV-C dan dicek rutin agar bebas *stick drift*.</p>
+                </div>
+              </div>
+              <div class="py-4 flex gap-4">
+                <span class="font-mono text-xs text-muted pt-1">02</span>
+                <div>
+                  <h3 class="text-sm font-semibold">Jaringan LAN Fiber 1Gbps</h3>
+                  <p class="text-sm text-muted mt-1">Setiap unit terhubung kabel LAN langsung untuk ping stabil saat bermain online kompetitif.</p>
+                </div>
+              </div>
+              <div class="py-4 flex gap-4">
+                <span class="font-mono text-xs text-muted pt-1">03</span>
+                <div>
+                  <h3 class="text-sm font-semibold">Login Akun PSN Pribadi Aman</h3>
+                  <p class="text-sm text-muted mt-1">Bebas pakai akun pribadi untuk akses *save game* Anda. Sesi login otomatis dibersihkan usai bermain.</p>
+                </div>
+              </div>
+              <div class="py-4 flex gap-4">
+                <span class="font-mono text-xs text-muted pt-1">04</span>
+                <div>
+                  <h3 class="text-sm font-semibold">Minuman & Camilan Antar ke Meja</h3>
+                  <p class="text-sm text-muted mt-1">Kopi, teh dingin, dan makanan ringan tersedia sepanjang jam operasional tanpa perlu meninggalkan permainan.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Clean FAQ -->
+          <div class="lg:col-span-6 space-y-6">
+            <div>
+              <p class="font-mono text-xs uppercase tracking-wider text-cobalt font-medium">Informasi</p>
+              <h2 class="text-2xl sm:text-3xl font-bold tracking-tight mt-1.5">Pertanyaan Umum</h2>
+            </div>
+
+            <div class="divide-y border-t border-b border-subtle divide-subtle">
+              <div>
+                <button type="button" class="faq-btn w-full py-4 text-left flex items-center justify-between gap-4 text-sm font-semibold">
+                  <span>Apakah wajib booking sebelum datang?</span>
+                  <i data-lucide="plus" class="w-4 h-4 text-muted shrink-0 transition-transform"></i>
+                </button>
+                <div class="faq-panel hidden pb-4 text-sm text-muted leading-relaxed">
+                  Tidak wajib, Anda bisa langsung datang (*walk-in*). Namun untuk jam sibuk (18.00–23.00) dan Ruang VIP, booking sangat disarankan agar tidak menunggu antrean.
+                </div>
+              </div>
+
+              <div>
+                <button type="button" class="faq-btn w-full py-4 text-left flex items-center justify-between gap-4 text-sm font-semibold">
+                  <span>Apa syarat sewa PS5 bawa pulang?</span>
+                  <i data-lucide="plus" class="w-4 h-4 text-muted shrink-0 transition-transform"></i>
+                </button>
+                <div class="faq-panel hidden pb-4 text-sm text-muted leading-relaxed">
+                  Cukup menunjukkan KTP/SIM asli yang aktif dan konfirmasi alamat melalui WhatsApp. Tim kurir kami akan mengantar unit dan membantu pemasangan awal.
+                </div>
+              </div>
+
+              <div>
+                <button type="button" class="faq-btn w-full py-4 text-left flex items-center justify-between gap-4 text-sm font-semibold">
+                  <span>Apakah bisa memperpanjang durasi saat sedang main?</span>
+                  <i data-lucide="plus" class="w-4 h-4 text-muted shrink-0 transition-transform"></i>
+                </button>
+                <div class="faq-panel hidden pb-4 text-sm text-muted leading-relaxed">
+                  Bisa, selama tidak ada jadwal reservasi tepat setelah sesi Anda. Anda cukup memberi tahu staf 15 menit sebelum waktu berakhir.
+                </div>
+              </div>
+
+              <div>
+                <button type="button" class="faq-btn w-full py-4 text-left flex items-center justify-between gap-4 text-sm font-semibold">
+                  <span>Bagaimana cara mengecek ulang reservasi saya?</span>
+                  <i data-lucide="plus" class="w-4 h-4 text-muted shrink-0 transition-transform"></i>
+                </button>
+                <div class="faq-panel hidden pb-4 text-sm text-muted leading-relaxed">
+                  Klik tombol <strong>Cek Tiket</strong> di bagian atas halaman, lalu masukkan kode booking berawalan <code>S09-</code> yang Anda terima setelah reservasi.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-subtle py-12">
+    <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <div class="space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded bg-cobalt text-white font-mono text-[11px] font-semibold flex items-center justify-center">09</span>
+          <span class="font-bold text-sm">STATION 09</span>
+        </div>
+        <p class="text-xs text-muted max-w-sm">
+          PlayStation 5 Lounge & Home Rental. Buka 24 jam setiap hari.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-x-8 gap-y-2 text-xs text-muted">
+        <span>Jl. Boulevard Selatan No. 09</span>
+        <span class="font-mono">WA: 0858-2030-543</span>
+        <span>hello@station09.id</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL 1: KONFIRMASI TIKET RESERVASI -->
+  <div id="ticket-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
+    <div class="surface-card border border-subtle rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-subtle">
+        <div class="flex items-center gap-2 text-emerald-500">
+          <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+          <h3 class="font-bold text-base">Reservasi Tercatat</h3>
+        </div>
+        <button id="close-ticket-btn" type="button" class="p-1.5 rounded-lg btn-ghost">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="my-5 p-4 rounded-xl surface-subtle border border-subtle text-center">
+        <p class="text-[11px] font-mono uppercase text-muted">Kode Booking Anda</p>
+        <div class="flex items-center justify-center gap-2 mt-1">
+          <span id="ticket-code" class="font-mono text-2xl font-bold tracking-wider">S09-00000</span>
+          <button id="copy-ticket-btn" type="button" title="Salin Kode" class="p-1.5 rounded-lg btn-ghost">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+
+      <dl class="space-y-2.5 text-sm mb-6">
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Pemesan</dt>
+          <dd id="ticket-name" class="font-semibold text-right"></dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Paket & Unit</dt>
+          <dd id="ticket-detail" class="font-medium text-right"></dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt class="text-muted">Jadwal</dt>
+          <dd id="ticket-schedule" class="font-mono text-xs text-right"></dd>
+        </div>
+        <div class="flex justify-between gap-4 pt-3 border-t border-subtle">
+          <dt class="font-semibold">Total Biaya</dt>
+          <dd id="ticket-total" class="font-mono font-bold text-base tabular-nums"></dd>
+        </div>
+      </dl>
+
+      <a id="ticket-wa-btn" href="#" target="_blank" rel="noopener"
+        class="w-full py-3 rounded-xl bg-cobalt hover:bg-cobalt-hover text-white text-sm font-semibold flex items-center justify-center gap-2 transition-colors">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        <span>Kirim Konfirmasi ke WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- MODAL 2: CEK STATUS KODE BOOKING -->
+  <div id="lookup-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 modal-backdrop">
+    <div class="surface-card border border-subtle rounded-2xl max-w-md w-full p-6 sm:p-7 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-subtle">
+        <h3 class="font-bold text-base">Cek Status Reservasi</h3>
+        <button id="close-lookup-btn" type="button" class="p-1.5 rounded-lg btn-ghost">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="lookup-form" class="mt-5 flex gap-2">
+        <input id="lookup-input" type="text" required placeholder="Masukkan kode (mis. S09-AB12C)"
+          class="w-full px-3.5 py-2.5 rounded-xl form-input text-sm font-mono uppercase" />
+        <button type="submit" class="px-4 py-2.5 rounded-xl bg-cobalt hover:bg-cobalt-hover text-white text-sm font-semibold shrink-0">
+          Cari
+        </button>
+      </form>
+
+      <div id="lookup-result" class="mt-5 text-sm"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast-root" class="fixed bottom-5 right-5 z-[110] space-y-2"></div>
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
